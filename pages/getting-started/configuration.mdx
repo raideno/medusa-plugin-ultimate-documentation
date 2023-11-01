@@ -1,0 +1,24 @@
+# Configuration
+
+In addition to this you'll need one of the env variables available:
+
+- `MEDUSA_ADMIN_BACKEND_URL`
+- `BACKEND_URL`
+
+```ts
+// medusa-config.js
+
+const plugins = [
+  // other plugins
+  /** @type {import('medusa-plugin-ultimate').Options} */
+  {
+    resolve: "medusa-plugin-ultimate",
+    options: {
+      enableUI: true,
+      // IMPORTANT
+      backendUrl: process.env.BACKEND_URL || "http://localhost:9000",
+    },
+  },
+  // ...
+];
+```

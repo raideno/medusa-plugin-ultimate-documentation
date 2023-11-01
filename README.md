@@ -1,22 +1,17 @@
-# Nextra Docs Template 
+# Medusa Ultimate Plugin
 
-This is a template for creating documentation with [Nextra](https://nextra.site).
+This is the documentation website for the [medusa-plugin-ultimate](https://github.com/raideno/medusa-plugin-ultimate).
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
+[**Documentation →**](https://medusa-plugin-ultimate.raideno.xyz/)
 
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
+[![](.github/plugin-thumbnail.png)](https://www.npmjs.com/package/medusa-plugin-ultimate)
 
-## Quick Start
+## Contributions
 
-Click the button to clone this repository and deploy it on Vercel:
+For any contributions contact me:
 
-[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
-
-## Local Development
-
-First, run `pnpm i` to install the dependencies.
-
-Then, run `pnpm dev` to start the development server and visit localhost:3000.
+- **Discord:** @raiden56 `ID:423897604330618883`
+- nadirkichou@hotmail.fr
 
 ## License
 
