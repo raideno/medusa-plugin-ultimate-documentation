@@ -1,0 +1,6 @@
+{
+    "one-to-one": "One To One",
+    "many-to-one": "Many To One",
+    "one-to-many": "One To Many",
+    "many-to-many": "Many To Mnay"
+}

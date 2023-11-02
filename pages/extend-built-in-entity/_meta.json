@@ -1,0 +1,6 @@
+{
+    "extend-entity": "Extend Entity",
+    "extend-entity-validators": "Extend Validators",
+    "create-migrations": "Create Migrations",
+    "use-ui": "Use UI"
+}
