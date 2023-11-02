@@ -1,0 +1,42 @@
+# Boolean Field Type
+
+Ideal for boolean values, will be translated to a switch.
+
+```ts
+import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
+// code..
+
+@UltimateEntityField({
+    // required
+    type: UltimateEntityFieldTypes.BOOLEAN,
+    // options
+    defaultValue?: string;
+    name?: string;
+    description?: string;
+    note?: string;
+    group?: string;
+})
+@Column({ type: "varchar" })
+color: string;
+
+// code..
+```
+
+## Parameters
+
+- `type`: `UltimateEntityFieldTypes.BOOLEAN`,
+- `defaultValue`: (optional)
+- `name`: (optional) override field name, will be displayed on the UI as a label.
+- `description`: (optional) to give more details about the field, will be displayed on the UI below the input.
+- `note`: (optional) displayed as a tooltip when the infos icon is hovered.
+- `group`: (optional) fields of the same group are displayed in the same block [(details)](/advanced/grouping).
+
+## Example Use Cases
+
+This field can be used for multiple things
+
+- Disable / Enable a notification
+
+## Illustrative Images
+
+[Image-1](/assets)

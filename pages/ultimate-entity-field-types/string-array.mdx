@@ -1,6 +1,6 @@
-# String Field Type
+# String Array Type
 
-Ideal for one line small text, will be translated to an html input.
+Ideal for keywords and lists of strings, will be translated into a multi input keywords.
 
 ```ts
 import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
@@ -8,24 +8,22 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
 
 @UltimateEntityField({
     // required
-    type: UltimateEntityFieldTypes.STRING,
+    type: UltimateEntityFieldTypes.STRING_ARRAY,
     // options
-    defaultValue?: string;
     name?: string;
     description?: string;
     note?: string;
     group?: string;
 })
-@Column({ type: "varchar" })
-name: string;
+@Column({ type: "string", array: true, })
+keywords: string[];
 
 // code..
 ```
 
 ## Parameters
 
-- `type`: `UltimateEntityFieldTypes.STRING`,
-- `defaultValue`: (optional)
+- `type`: `UltimateEntityFieldTypes.STRING_ARRAY`,
 - `name`: (optional) override field name, will be displayed on the UI as a label.
 - `description`: (optional) to give more details about the field, will be displayed on the UI below the input.
 - `note`: (optional) displayed as a tooltip when the infos icon is hovered.
@@ -35,7 +33,7 @@ name: string;
 
 This field can be used for multiple things
 
-- Every single line text
+- Keywords
 
 ## Illustrative Images
 

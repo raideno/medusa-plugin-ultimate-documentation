@@ -1,6 +1,6 @@
-# String Field Type
+# Metadata Field Type
 
-Ideal for one line small text, will be translated to an html input.
+Will be translated to a multi column table.
 
 ```ts
 import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
@@ -8,7 +8,8 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
 
 @UltimateEntityField({
     // required
-    type: UltimateEntityFieldTypes.STRING,
+    type: UltimateEntityFieldTypes.METADATA,
+    columns: { name: string; placeholder?: string; defaultValue?: string }[];
     // options
     defaultValue?: string;
     name?: string;
@@ -16,15 +17,17 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
     note?: string;
     group?: string;
 })
-@Column({ type: "varchar" })
-name: string;
+@Column({ type: "jsonb" })
+// TODO: replace "any" with correct type
+metadata: any;
 
 // code..
 ```
 
 ## Parameters
 
-- `type`: `UltimateEntityFieldTypes.STRING`,
+- `type`: `UltimateEntityFieldTypes.BOOLEAN`,
+- `columns`: array of columns for the matadata, be default there is only one.
 - `defaultValue`: (optional)
 - `name`: (optional) override field name, will be displayed on the UI as a label.
 - `description`: (optional) to give more details about the field, will be displayed on the UI below the input.
@@ -35,7 +38,8 @@ name: string;
 
 This field can be used for multiple things
 
-- Every single line text
+- Product Metadata
+- Table
 
 ## Illustrative Images
 

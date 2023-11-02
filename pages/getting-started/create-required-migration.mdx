@@ -1,0 +1,90 @@
+# Create migration
+
+For now you have created your enetity but it's still not defined in your database tables this is why we need to create a migration for it, Two options are available
+
+- Automatically generate it.
+- Write it manually (In this documentation we have choose this one).
+
+[Look at Medusa documentation for more infos on Migrations](https://docs.medusajs.com/development/entities/migrations/create).
+
+[Look at Typeorm documentation for more infos on Migrations](https://typeorm.io/).
+
+## Generate Migration File
+
+```bash
+npx typeorm migration:create src/migrations/BlogPostCreate
+```
+
+After running this command you'll have a simillar file:
+
+`src/migrations/1696669623641-BlogPostCreate.ts`
+
+```ts
+//src/migrations/1696669623641-BlogPostCreate.ts
+
+import { MigrationInterface, QueryRunner } from "typeorm";
+
+export class BlogPostCreate1696669623641 implements MigrationInterface {
+  name = "BlogPostCreate1696669623641";
+
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    // Complete...
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    // Complete...
+  }
+}
+```
+
+## Writing The Migration
+
+```ts
+//src/migrations/1696669623641-BlogPostCreate.ts
+
+import { MigrationInterface, QueryRunner } from "typeorm";
+
+export class BlogPostCreate1696669623641 implements MigrationInterface {
+  name = "BlogPostCreate1696669623641";
+
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
+        CREATE TABLE "blog_post" (
+            "id" character varying NOT NULL,
+            "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+            "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+            
+            "title" character varying NOT NULL,
+            "slug" character varying NOT NULL,
+            "content" character varying NOT NULL,
+
+            CONSTRAINT "PK_1696669623641b6ad21b37ba1f" PRIMARY KEY ("id")
+        )
+    `);
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`DROP TABLE "blog_post"`);
+  }
+}
+```
+
+## Running The Migration
+
+1. Build your code
+
+```bash
+npm run build
+```
+
+2. Run migrations
+
+```bash
+npx medusa migrations run
+```
+
+## Need Help for your migrations ?
+
+- [Look at Medusa documentation for more infos on Migrations](https://docs.medusajs.com/development/entities/migrations/create).
+- [Look at Typeorm documentation for more infos on Migrations](https://typeorm.io/).
+- You can contact me on [Discord](https://discord.com) i'll be happy to help you.

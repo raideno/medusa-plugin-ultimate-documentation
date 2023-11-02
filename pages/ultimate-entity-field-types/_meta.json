@@ -1,0 +1,12 @@
+{
+    "string": "String",
+    "text": "Text",
+    "boolean": "Boolean",
+    "image": "Image",
+    "select": "Select",
+    "string-array": "String Array",
+    "date": "Date",
+    "markdown": "Markdown",
+    "color": "Color",
+    "metadata": "Metadata"
+}

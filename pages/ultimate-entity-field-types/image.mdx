@@ -1,6 +1,6 @@
-# String Field Type
+# Image Field Type
 
-Ideal for one line small text, will be translated to an html input.
+Ideal for images, will be translated into an image / file input.
 
 ```ts
 import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
@@ -8,23 +8,23 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
 
 @UltimateEntityField({
     // required
-    type: UltimateEntityFieldTypes.STRING,
+    type: UltimateEntityFieldTypes.IMAGE,
     // options
-    defaultValue?: string;
+    defaultValue: string;
     name?: string;
     description?: string;
     note?: string;
     group?: string;
 })
 @Column({ type: "varchar" })
-name: string;
+image: string;
 
 // code..
 ```
 
 ## Parameters
 
-- `type`: `UltimateEntityFieldTypes.STRING`,
+- `type`: `UltimateEntityFieldTypes.IMAGE`,
 - `defaultValue`: (optional)
 - `name`: (optional) override field name, will be displayed on the UI as a label.
 - `description`: (optional) to give more details about the field, will be displayed on the UI below the input.
@@ -35,7 +35,7 @@ name: string;
 
 This field can be used for multiple things
 
-- Every single line text
+- Any kind of image
 
 ## Illustrative Images
 

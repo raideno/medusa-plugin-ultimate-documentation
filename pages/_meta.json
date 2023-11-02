@@ -1,6 +1,19 @@
 {
   "index": "Introduction",
+  "getting-started": "Getting Started",
+  "ultimate-entity-field-types": "Ultimate Entity Field Types",
+  "ultimate-entity": "Ultimate Entity",
+  "extend-built-in-entity": "Extend a Built-In Entity",
+  "examples": "Examples",
+
+  "retreive-data-from-store-front": "Retreive Data From Store Front",
   "advanced": "Advanced",
+  "endpoints": "Endpoints",
+  "api": "Api",
+  "change-log": "Change Log",
+  "roadmap": "Roadmap",
+  "contribution-suggestions": "Contribute",
+
   "about": {
     "title": "About",
     "type": "page"

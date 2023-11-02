@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raideno/medusa-plugin-ultimate.git"
+    "url": "git+https://github.com/raideno/medusa-plugin-ultimate-documentation.git"
   },
   "author": "raideno <nadirkichou@hotmail.fr>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/raideno/medusa-plugin-ultimate/issues"
+    "url": "https://github.com/raideno/medusa-plugin-ultimate-documentation/issues"
   },
-  "homepage": "https://github.com/raideno/medusa-plugin-ultimate#readme",
+  "homepage": "https://medusa-plugin-ultimate.raideno.xyz",
   "dependencies": {
     "next": "^13.0.6",
     "nextra": "latest",

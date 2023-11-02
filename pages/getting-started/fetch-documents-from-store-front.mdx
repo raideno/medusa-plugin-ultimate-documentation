@@ -1,0 +1,27 @@
+# Fetch Documents From StoreFront
+
+After creating documents for your entity (blog-posts for exampe) you'll want to access those documents from your storefront and you can access them via two different endpoints:
+
+[Detailed Documentation About Available Endpoints](/endpoints).
+
+## Get all entity documents
+
+- **GET** `<BACKEND_URL>/store/ultimate-entities/<ULTIMATE_ENTITY_ID>/documents`
+
+  replace `<BACKEND_URL>` with your backend url.
+
+  replace `<ULTIMATE_ENTITY_ID>` with your entity id, in our example the entity BlogPost id is **blog_post**.
+
+  =><u>**RETURN**</u>: It'll return all your entity documents.
+
+## Get entity document by Id
+
+- **GET** `<BACKEND_URL>/store/ultimate-entities/<ULTIMATE_ENTITY_ID>/documents/<DOCUMENT_ID>`
+
+  replace `<BACKEND_URL>` with your backend url.
+
+  replace `<ULTIMATE_ENTITY_ID>` with your entity id, in our example the entity BlogPost id is **blog_post**.
+
+  replace `<DOCUMENT_ID>` with the document id.
+
+  =><u>**RETURN**</u>: It'll return the corresponding document.

@@ -1,6 +1,6 @@
-# String Field Type
+# Date Field Type
 
-Ideal for one line small text, will be translated to an html input.
+Ideal for dates, will be translated into a date picker.
 
 ```ts
 import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
@@ -8,23 +8,22 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
 
 @UltimateEntityField({
     // required
-    type: UltimateEntityFieldTypes.STRING,
+    type: UltimateEntityFieldTypes.DATE,
     // options
-    defaultValue?: string;
     name?: string;
     description?: string;
     note?: string;
     group?: string;
 })
-@Column({ type: "varchar" })
-name: string;
+@Column({ type: "timestamptz" })
+expiration_date: Date;
 
 // code..
 ```
 
 ## Parameters
 
-- `type`: `UltimateEntityFieldTypes.STRING`,
+- `type`: `UltimateEntityFieldTypes.DATE`,
 - `defaultValue`: (optional)
 - `name`: (optional) override field name, will be displayed on the UI as a label.
 - `description`: (optional) to give more details about the field, will be displayed on the UI below the input.
@@ -35,7 +34,7 @@ name: string;
 
 This field can be used for multiple things
 
-- Every single line text
+- Expiration Date of a notification
 
 ## Illustrative Images
 

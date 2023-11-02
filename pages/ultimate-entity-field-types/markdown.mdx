@@ -1,6 +1,6 @@
-# String Field Type
+# Markdown Array Type
 
-Ideal for one line small text, will be translated to an html input.
+Ideal for long formatted texts, will be translated into a rich / markdown text editor.
 
 ```ts
 import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
@@ -8,23 +8,23 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
 
 @UltimateEntityField({
     // required
-    type: UltimateEntityFieldTypes.STRING,
+    type: UltimateEntityFieldTypes.MARKDOWN,
     // options
-    defaultValue?: string;
+    defaultValue: string;
     name?: string;
     description?: string;
     note?: string;
     group?: string;
 })
 @Column({ type: "varchar" })
-name: string;
+content: string;
 
 // code..
 ```
 
 ## Parameters
 
-- `type`: `UltimateEntityFieldTypes.STRING`,
+- `type`: `UltimateEntityFieldTypes.MARKDOWN`,
 - `defaultValue`: (optional)
 - `name`: (optional) override field name, will be displayed on the UI as a label.
 - `description`: (optional) to give more details about the field, will be displayed on the UI below the input.
@@ -35,7 +35,8 @@ name: string;
 
 This field can be used for multiple things
 
-- Every single line text
+- Blog Post content
+- Product Rich Description
 
 ## Illustrative Images
 

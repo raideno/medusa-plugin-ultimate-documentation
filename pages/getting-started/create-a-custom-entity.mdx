@@ -1,0 +1,82 @@
+# Create a Custom Entity
+
+For illustration we gonna take an example of Blog Post Entity but you can do anything you like
+
+Start by creating the entity:
+
+## **Basic Entity:**
+
+```ts
+// src/models/blog-post
+
+import { BeforeInsert, Column, Entity } from "typeorm";
+
+import { BaseEntity } from "@medusajs/medusa";
+import { generateEntityId } from "@medusajs/utils";
+
+@Entity()
+export class BlogPost extends BaseEntity {
+  @Column({ type: "varchar", nullable: false })
+  title: string;
+
+  @Column({ type: "varchar", nullable: false })
+  slug: string;
+
+  @Column({ type: "varchar", nullable: true })
+  content: string;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "blog-post");
+  }
+}
+```
+
+Now add the required plugin decorators to your entity in order to make it an Ultimate Entity:
+
+## **Ultimate Entity:**
+
+```ts
+// src/models/blog-post
+
+import { BeforeInsert, Column, Entity } from "typeorm";
+
+import { BaseEntity } from "@medusajs/medusa";
+import { generateEntityId } from "@medusajs/utils";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+} from "medusa-plugin-ultimate/dist/index";
+
+@Entity()
+// Add this
+@UltimateEntity({})
+export class BlogPost extends BaseEntity {
+  @Column({ type: "varchar", nullable: false })
+  // Add this
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  title: string;
+
+  // Add this
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  slug: string;
+
+  @Column({ type: "varchar", nullable: true })
+  // Add this
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.MARKDOWN,
+  })
+  content: string;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "blog-post");
+  }
+}
+```

@@ -1,6 +1,6 @@
-# String Field Type
+# Select Field Type
 
-Ideal for one line small text, will be translated to an html input.
+Ideal for multiple options of predefined values, will be translated to an html select.
 
 ```ts
 import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
@@ -8,23 +8,24 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
 
 @UltimateEntityField({
     // required
-    type: UltimateEntityFieldTypes.STRING,
+    type: UltimateEntityFieldTypes.SELECT,
+    options: { value: string; label: string; description: string; }[];
     // options
-    defaultValue?: string;
     name?: string;
     description?: string;
     note?: string;
     group?: string;
 })
 @Column({ type: "varchar" })
-name: string;
+description: string;
 
 // code..
 ```
 
 ## Parameters
 
-- `type`: `UltimateEntityFieldTypes.STRING`,
+- `type`: `UltimateEntityFieldTypes.SELECT`,
+- `options`: list of available options.
 - `defaultValue`: (optional)
 - `name`: (optional) override field name, will be displayed on the UI as a label.
 - `description`: (optional) to give more details about the field, will be displayed on the UI below the input.
@@ -35,7 +36,7 @@ name: string;
 
 This field can be used for multiple things
 
-- Every single line text
+- Select Options from an enum
 
 ## Illustrative Images
 
