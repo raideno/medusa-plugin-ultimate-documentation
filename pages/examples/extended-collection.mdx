@@ -1,7 +1,176 @@
+IMPORTANT: specify that new fields have to be nullable and explain why, because they can't be filled on creation
+
 # Extended Collection Example
 
-import { Callout } from "nextra/components";
+In this example tutorial we are going to extend the collection entity and add some fields to it and automatically generate a ui and endpoints to edit those fields from our Admin Dashboard and fetch them from our store front.
 
-<Callout type="info" emoji="ℹ️">
-  This page haven't been written yet. Help us write it by contributing!
-</Callout>
+In this example we are going to add the following fields to the collection entity:
+- Thumbnail
+- Description
+- Keywords
+
+Your are free to customize the fields depending on your needs.
+
+import { Steps } from 'nextra/components'
+import { Callout } from 'nextra/components'
+
+<Steps>
+
+### Install and Configure the Plugin
+
+Refer to this two steps of the [Getting Started Tutorial](/getting-started) for that:
+- [Install the Plugin](/getting-started/installation).
+- [Configure the Plugin](/getting-started/configuration).
+
+### Create and Extend Collection Entity
+
+Start by creating a new `product-collection` file under the `src/models` directory. And add to it the ncessary fields. 
+
+```ts filename="src/models/product-collection.ts" showLineNumbers copy
+import { Column, Entity } from "typeorm";
+
+import { ProductCollection as MedusaProductCollection } from "@medusajs/medusa";
+
+@Entity()
+export class ProductCollection extends MedusaProductCollection {
+    @Column({ type: "varchar", nullable: true })
+    description?: string | null;
+
+    @Column({ type: "string", array: true, nullable: true })
+    keywords?: string[] | null;
+
+    @Column({ type: "varchar", nullable: true })
+    thumbnail?: string | null;
+}
+```
+
+### Add Ultimate Decorators
+
+This decorators will tell the plugin what UI to generate for your entity.
+
+```ts {5-9,12-15,17-19,23-25,29-31} filename="src/models/product-collection.ts" showLineNumbers copy
+import { Column, Entity } from "typeorm";
+
+import { ProductCollection as MedusaProductCollection } from "@medusajs/medusa";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+} from "medusa-plugin-ultimate/dist/index";
+
+@Entity()
+@UltimateEntity({
+  isBuiltInEntity: true,
+  hidden: true,
+})
+export class ProductCollection extends MedusaProductCollection {
+    @UltimateEntityField({
+        type: UltimateEntityFieldTypes.STRING,
+    })
+    @Column({ type: "varchar", nullable: true })
+    description?: string | null;
+
+    @UltimateEntityField({
+        type: UltimateEntityFieldTypes.STRING_ARRAY,
+    })
+    @Column({ type: "string", array: true, nullable: true })
+    keywords?: string[] | null;
+
+    @UltimateEntityField({
+        type: UltimateEntityFieldTypes.IMAGE,
+    })
+    @Column({ type: "varchar", nullable: true })
+    thumbnail?: string | null;
+}
+```
+
+### Extend Collection Entity Validators
+
+Built-In entities are updated through default medusa endpoints. This is why we need to extend those endpoints validators in order to accept new fields and validate them.
+
+In the same file where you created and extended the product collection your entity `src/models/product-collection.ts`:
+
+```ts {24-42} filename="src/models/product-collection.ts" copy showLineNumbers
+import { Column, Entity } from "typeorm";
+
+import { Product as MedusaProduct } from "@medusajs/medusa";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+} from "medusa-plugin-ultimate/dist/index";
+
+@Entity()
+@UltimateEntity({
+  isBuiltInEntity: true,
+  hidden: true,
+})
+export class Product extends MedusaProduct {
+    // code...
+}
+
+import { IsString, IsOptional } from "class-validator";
+import { registerOverriddenValidators } from "@medusajs/medusa";
+import { AdminPostCollectionsReq as MedusaAdminPostCollectionsReq } from "@medusajs/medusa/dist/api/routes/admin/collections/create-collection";
+import { AdminPostCollectionsCollectionReq as MedusaAdminPostCollectionsCollectionReq } from "@medusajs/medusa/dist/api/routes/admin/collections/update-collection";
+
+class AdminPostCollectionsReq extends MedusaAdminPostCollectionsReq {
+    @IsOptional()
+    @IsString()
+    description?: string | null;
+    
+    @IsOptional()
+    @IsString()
+    thumbnail?: string |null;
+    
+    @IsOptional()
+    @IsArray()
+    @IsString({ each: true })
+    keywords?: string[] | null;
+}
+
+class AdminPostCollectionsCollectionReq extends MedusaAdminPostCollectionsCollectionReq {
+    @IsOptional()
+    @IsString()
+    description?: string | null;
+    
+    @IsOptional()
+    @IsString()
+    thumbnail?: string |null;
+    
+    @IsOptional()
+    @IsArray()
+    @IsString({ each: true })
+    keywords?: string[] | null;
+}
+
+registerOverriddenValidators(AdminPostCollectionsReq);
+registerOverriddenValidators(AdminPostCollectionsCollectionReq);
+```
+
+### Create Required Migrations
+
+Migrations are SQL code that'll be run on your database to sync your entites structure to your database schema.
+
+1- run the command to generate a file + show the empty file
+2- write onto the file
+3- run the migration
+
+To know more about migrations refer to:
+- [Medusa Migrations Documentation](https://example.com).
+- [Typeorm Documentation](https://example.com).
+
+
+### Experiment with UI
+
+New fields will appear on the collection page at the bottom and can be edited only after creating the collection (they are not visible on the creation form).
+
+[Collection-Ultimate-Entity-Widget](/)
+
+### Access New Fields From StoreFront
+
+New fields that you extended will be automatically available when you fetch collection(s) from default medusa endpoints.
+
+</Steps>

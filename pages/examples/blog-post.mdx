@@ -1,7 +1,229 @@
 # Blog Post Example
 
-import { Callout } from "nextra/components";
+In this example tutorial we are going to create a Blog Post entity and automatically generate for it a UI and fetch it from our store front.
+
+The Blog Post entity will consist of a:
+- Slug (blog-post url)
+- Title
+- Description
+- Thumbnail
+- Cover
+- Keywords
+- Markdown Content.
+
+Your are free to customize the fields depending on your needs.
+
+import { Steps } from 'nextra/components'
+import { Callout } from 'nextra/components'
+ 
+<Steps>
+
+### Install and Configure the Plugin
+
+Refer to this two steps of the [Getting Started Tutorial](/getting-started) for that:
+- [Install the Plugin](/getting-started/installation).
+- [Configure the Plugin](/getting-started/configuration).
+
+### Create Entity
+ 
+Start by creating a new `blog-post` file under teh `src/models` directory. And add to it the necessary fields.
+
+```ts filename="src/models/blog-post.ts" showLineNumbers copy
+import { Column, Entity, BeforeInsert } from "typeorm";
+
+import { BaseEntity, generateEntityId } from "@medusajs/medusa";
+
+@Entity()
+export default class BlogPost extends BaseEntity {
+  @Column({ type: "string", nullable: false, unique: true })
+  slug: string;
+
+  @Column({ type: "string"})
+  title: string;
+
+  @Column({ type: "string" })
+  description: string;
+
+  @Column({ type: "string", array: true, nullable: true })
+  keywords: string[] | null;
+
+  @Column({ type: "string" })
+  content: string;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "blog-post");
+  }
+}
+```
+ 
+### Add Ultimate Decorators
+ 
+This decorators will tell to the plugin what UI to generate for your entity.
 
 <Callout type="info" emoji="ℹ️">
-  This page haven't been written yet. Help us write it by contributing!
+  **What is a Decorator ?** Everything that start with `@`, refer to this [Documentation](https://www.typescriptlang.org/docs/handbook/decorators.html) to know more about decorators.
 </Callout>
+
+```ts {5-9,12,14-16,20-22,26-28,32-34,38-40} filename="src/models/blog-post.ts" copy showLineNumbers
+import { Column, Entity, BeforeInsert } from "typeorm";
+
+import { BaseEntity, generateEntityId } from "@medusajs/medusa";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+} from "medusa-plugin-ultimate/dist/index";
+
+@Entity()
+@UltimateEntity({})
+export default class BlogPost extends BaseEntity {
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  @Column({ type: "string" })
+  slug: string;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  @Column({ type: "string" })
+  title: string;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.TEXT,
+  })
+  @Column({ type: "string" })
+  description: string;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING_ARRAY,
+  })
+  @Column({ type: "string", array: true, nullable: true })
+  keywords: string[] | null;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.MARKDOWN,
+  })
+  @Column({ type: "string" })
+  content: string;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "blog-post");
+  }
+}
+```
+
+### Add Validators (Optional)
+
+In case you want to make the creation of documents more safe, you can use `class-validaotr` and `class-transformer` to add validation for your entity documents on creation or update. Here is an example:
+
+Goal:
+
+- We want the description length to be between 2 abd 2048.
+- We want the title length to be between 2 and 256.
+
+```ts {20,27-29} filename="src/models/blog-post.ts" copy showLineNumbers
+import { Column, Entity, BeforeInsert } from "typeorm";
+
+import { BaseEntity, generateEntityId } from "@medusajs/medusa";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+} from "medusa-plugin-ultimate/dist/index";
+
+@Entity()
+@UltimateEntity({})
+export default class BlogPost extends BaseEntity {
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  @Column({ type: "string" })
+  slug: string;
+
+  @Length(2, 256)
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  @Column({ type: "string" })
+  title: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(2, 2048)
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.TEXT,
+  })
+  @Column({ type: "string", nullable: true })
+  description?: string | null;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING_ARRAY,
+  })
+  @Column({ type: "string", array: true, nullable: true })
+  keywords?: string[] | null;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.MARKDOWN,
+  })
+  @Column({ type: "string", nullable: true })
+  content?: string | null;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "blog-post");
+  }
+}
+```
+
+To know more about `class-validator` refer to their [Documentation](https://github.com/typestack/class-validator).
+
+### Create Required Migrations
+
+Migrations are SQL code that'll be run on your database to sync your entites structure to your database schema.
+
+1- run the command to generate a file + show the empty file
+2- write onto the file
+3- run the migration
+
+To know more about migrations refer to:
+- [Medusa Migrations Documentation](https://example.com).
+- [Typeorm Documentation](https://example.com).
+
+### Experiment with UI
+
+Try and create new blog posts.
+
+[Ultimate-Entites-Tab-ScreenShot](/)
+
+[Blog-Post-Ultimate-Entity-Documents-ScreenShot](/)
+
+[Blog-Post-Ultimate-Entity-Create-Document-ScreenShot](/)
+
+[Blog-Post-Ultimate-Entity-Document-ScreenShot](/)
+
+### Fetch Blog Posts from StoreFront
+ 
+To retreive the Blog Posts from your StoreFront, two endpoints are available
+
+- Get all Blog Posts
+
+  `GET` `<BACKEND_URL>/store/ultimate-entities/blog_post/documents`
+
+- Get a Blog Post by it's slug
+
+  `GET` `<BACKEND_URL>/store/ultimate-entities/blog_post/documents?slug=<BLOG_POST_SLUG>`
+
+- Get a Blog Post by ID
+
+  `GET` `<BACKEND_URL>/store/ultimate-entities/blog_post/documents/<BLOG_POST_ID>`
+
+To learn more about available endpoints refer to the [Endpoints Section](/endpoints) of the Documentation.
+  
+</Steps>
+
+End.
