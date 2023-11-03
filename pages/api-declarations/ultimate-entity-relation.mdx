@@ -1,0 +1,18 @@
+# Ultimate Entity Relation
+
+```ts filename="src/types/ultimate-entity-relation.ts" copy showLineNumbers
+export type UltimateRelationWithType<T extends UltimateEntityRelationTypes> = {
+  id: string;
+
+  type: T;
+
+  relationEntityId: string;
+  relationEntityPropertyName: string;
+
+  group?: string;
+
+  note?: string;
+  name?: string;
+  description?: string;
+};
+```

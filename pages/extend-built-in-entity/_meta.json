@@ -2,5 +2,6 @@
     "extend-entity": "Extend Entity",
     "extend-entity-validators": "Extend Validators",
     "create-migrations": "Create Migrations",
-    "use-ui": "Use UI"
+    "use-ui": "Use UI",
+    "retreive-fields-from-store-front": "Retreive Fields From StoreFront"
 }

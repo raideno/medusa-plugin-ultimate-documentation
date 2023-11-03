@@ -4,11 +4,9 @@ For illustration we gonna take an example of Blog Post Entity but you can do any
 
 Start by creating the entity:
 
-## **Basic Entity:**
+## **Basic Entity**
 
-```ts
-// src/models/blog-post
-
+```ts filename="src/models/blog-post" copy showLineNumbers
 import { BeforeInsert, Column, Entity } from "typeorm";
 
 import { BaseEntity } from "@medusajs/medusa";
@@ -34,11 +32,9 @@ export class BlogPost extends BaseEntity {
 
 Now add the required plugin decorators to your entity in order to make it an Ultimate Entity:
 
-## **Ultimate Entity:**
+## **Ultimate Entity**
 
-```ts
-// src/models/blog-post
-
+```ts {6-10,14,18-20,24-26,31-33} filename="src/models/blog-post" copy showLineNumbers
 import { BeforeInsert, Column, Entity } from "typeorm";
 
 import { BaseEntity } from "@medusajs/medusa";

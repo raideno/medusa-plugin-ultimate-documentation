@@ -2,10 +2,14 @@
 
 Ideal for multiple options of predefined values, will be translated to an html select.
 
-```ts
-import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
-// code..
+```ts copy showLineNumbers
+import {
+  UltimateEntityFieldTypes,
+  UltimateEntityField,
+} from "medusa-plugin-ultimate/dist/index";
+```
 
+```ts copy showLineNumbers
 @UltimateEntityField({
     // required
     type: UltimateEntityFieldTypes.SELECT,
@@ -18,8 +22,6 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
 })
 @Column({ type: "varchar" })
 description: string;
-
-// code..
 ```
 
 ## Parameters

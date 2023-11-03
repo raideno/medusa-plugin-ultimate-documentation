@@ -1,3 +1,40 @@
 # Extend Built-In Entity
 
-getting started guide to extend a built-in entity
+In this tutorial you'll learn how to extend medusa Built-In and have UI to customize those new fields.
+
+## Supported Entities
+
+For now only this built-in entities are supported for extension
+
+- Product.
+- ProductCollection.
+
+## Let's Start
+
+The tutorial is divised into several steps.
+
+**Goal**: for illustration we have choosen to extend the `Product Entity` and add to it a **Markdown Description** field.
+
+import { Steps } from 'nextra/components'
+ 
+<Steps>
+### [Extend The Built-In Entity](/extend-built-in-entity/extend-entity)
+ 
+Create an entity file and extend the built-in entity.
+ 
+### [Extend The Entity Validators](/extend-built-in-entity/extend-entity-validators)
+ 
+In order for the built-in entity to be updatable.
+
+### [Create Migrations](/extend-built-in-entity/create-migrations)
+ 
+To map the entity chnages into the database.
+
+### [Use UI](/extend-built-in-entity/use-ui)
+ 
+Enjoy and experiment with the generated UI.
+
+### [Retreive Fields From StoreFront](/extend-built-in-entity/retreive-fields-from-store-front)
+
+Fetch the data of the new fields you created.
+</Steps>

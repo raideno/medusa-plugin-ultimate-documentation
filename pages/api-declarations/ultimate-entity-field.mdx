@@ -1,0 +1,26 @@
+# Ultimate Entity Field
+
+```ts filename="src/types/ultimate-entity-field.ts" copy showLineNumbers
+export type UltimateFieldWithType<T extends UltimateEntityFieldTypes> = {
+  id: string;
+  type: T;
+  defaultValue?: UltimateEntityFieldDefaultValueMap[T];
+  variant?: UltimateEntityFieldTypeMap[T];
+  
+  note?: string;
+  name?: string;
+  description?: string;
+
+  group?: string;
+  
+  /**
+   * only for select components
+   */
+  options?: UltimateFieldOption[];
+
+  /**
+   * only for metadata / table
+   */
+  columns?: { name: string; placeholder?: string; defaultValue?: string }[];
+};
+```

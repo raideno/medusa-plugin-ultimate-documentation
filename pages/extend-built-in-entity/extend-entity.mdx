@@ -1,0 +1,57 @@
+# Extend Built-In Entity
+
+**Goal**: for illustration we have choosen to extend the `Product Entity` and add to it a **Markdown Description** field.
+
+## 1- Create the Product Entity
+
+```ts copy showLineNumbers filename="src/models/product.ts"
+import { Entity } from "typeorm";
+
+import { Product as MedusaProduct } from "@medusajs/medusa";
+
+@Entity()
+export class Product extends MedusaProduct {
+}
+```
+
+## 2- Add the `markdown_description` Field
+
+```ts /Column,/ {7,8} copy showLineNumbers filename="src/models/product.ts"
+import { Column, Entity } from "typeorm";
+
+import { Product as MedusaProduct } from "@medusajs/medusa";
+
+@Entity()
+export class Product extends MedusaProduct {
+    @Column({ type: "varchar", nullable: true })
+    rich_description?: string | null;
+}
+```
+
+## 3- Make it an Ultimate Entity
+
+```ts {5-9,12-16,18-20} copy showLineNumbers filename="src/models/product.ts"
+import { Column, Entity } from "typeorm";
+
+import { Product as MedusaProduct } from "@medusajs/medusa";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+} from "medusa-plugin-ultimate/dist/index";
+
+@Entity()
+@UltimateEntity({
+    // required, to specify that it's a built-in entity. If not set will cause errors
+    isBuiltInEntity: true,
+    hidden: true,
+})
+export class Product extends MedusaProduct {
+    @UltimateEntityField({
+        type: UltimateEntityFieldTypes.MARKDOWN,
+    })
+    @Column({ type: "varchar", nullable: true })
+    rich_description?: string | null;
+}
+```

@@ -1,0 +1,76 @@
+# Create Migration
+
+Now that we have extended our built-in entity we need to map / reflect those changes to the database.
+
+**IMPORTANT Note**: Here we will create the migrations for the product entity to add the rich_description field, depending on your usecase / fields you added this might change and you migrations might be different, to know more about migrations:
+- [Look at Medusa documentation for more infos on Migrations](https://docs.medusajs.com/development/entities/migrations/create).
+- [Look at Typeorm documentation for more infos on Migrations](https://typeorm.io/).
+- Contact Us For Help.
+
+## 1- Generate Migration File
+
+```bash copy
+npx typeorm migration:create src/migrations/ProductCorrect
+```
+
+After running this command you'll have a simillar file:
+
+`src/migrations/1699007037122-ProductCorrect.ts`
+
+```ts filename="src/migrations/1696669623641-BlogPostCreate.ts" copy showLineNumbers
+import { MigrationInterface, QueryRunner } from "typeorm";
+
+export class ProductCorrect1699007037122 implements MigrationInterface {
+    name = "ProductCorrect1699007037122";
+
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        // Complete...
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        // Complete...
+    }
+}
+```
+
+## 2- Writing The Migration
+
+```ts filename="src/migrations/1696669623641-BlogPostCreate.ts" copy showLineNumbers
+import { MigrationInterface, QueryRunner } from "typeorm";
+
+export class ProductCorrect1699007037122 implements MigrationInterface {
+    name = "ProductCorrect1699007037122";
+
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`
+            ALTER TABLE "product" ADD COLUMN "rich_description" character varying
+        `);
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`
+            ALTER TABLE "product" DROP COLUMN "rich_description"
+        `);
+    }
+}
+```
+
+## 3- Running The Migration
+
+1. Build your code
+
+```bash
+npm run build
+```
+
+2. Run migrations
+
+```bash
+npx medusa migrations run
+```
+
+## Need Help for your migrations ?
+
+- [Look at Medusa documentation for more infos on Migrations](https://docs.medusajs.com/development/entities/migrations/create).
+- [Look at Typeorm documentation for more infos on Migrations](https://typeorm.io/).
+- You can contact me on [Discord](https://discord.com) i'll be happy to help you.

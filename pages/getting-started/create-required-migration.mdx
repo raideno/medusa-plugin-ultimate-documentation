@@ -11,7 +11,7 @@ For now you have created your enetity but it's still not defined in your databas
 
 ## Generate Migration File
 
-```bash
+```bash copy
 npx typeorm migration:create src/migrations/BlogPostCreate
 ```
 
@@ -19,9 +19,7 @@ After running this command you'll have a simillar file:
 
 `src/migrations/1696669623641-BlogPostCreate.ts`
 
-```ts
-//src/migrations/1696669623641-BlogPostCreate.ts
-
+```ts filename="src/migrations/1696669623641-BlogPostCreate.ts" copy showLineNumbers
 import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class BlogPostCreate1696669623641 implements MigrationInterface {
@@ -39,9 +37,7 @@ export class BlogPostCreate1696669623641 implements MigrationInterface {
 
 ## Writing The Migration
 
-```ts
-//src/migrations/1696669623641-BlogPostCreate.ts
-
+```ts {7-19,23} filename="src/migrations/1696669623641-BlogPostCreate.ts" copy showLineNumbers
 import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class BlogPostCreate1696669623641 implements MigrationInterface {

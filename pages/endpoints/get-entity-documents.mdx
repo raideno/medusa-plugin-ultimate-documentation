@@ -1,6 +1,20 @@
 # Get Your Entity Documents
 
-`<BACKEND_URL>/store/ultimate-entities/<ULTIMATE_ENTITY_ID>/documents`
+import { Callout } from "nextra/components";
+
+<Callout type="info" emoji="ℹ️">
+  This page haven't been written yet. Help us write it by contributing!
+</Callout>
+
+
+## Endpoint
+**GET**: `<BACKEND_URL>/store/ultimate-entities/<ULTIMATE_ENTITY_ID>/documents`
+
+## Path Variables
+
+- `<BACKEND_URL>`: your medusa backend URL.
+- `<ULTIMATE_ENTITY_ID>`: the entity ID.
+- `<DOCUMENT_ID>`: the entity document ID.
 
 ## Parameters
 
@@ -24,8 +38,7 @@
     created_at: Date;
     updated_at: Date;
     deleted_at: Date;
-  }
-  [];
+  }[];
 }
 ```
 

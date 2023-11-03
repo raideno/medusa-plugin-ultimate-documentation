@@ -2,10 +2,14 @@
 
 Ideal for keywords and lists of strings, will be translated into a multi input keywords.
 
-```ts
-import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ultimate/dist/index";
-// code..
+```ts copy showLineNumbers
+import {
+  UltimateEntityFieldTypes,
+  UltimateEntityField,
+} from "medusa-plugin-ultimate/dist/index";
+```
 
+```ts copy showLineNumbers
 @UltimateEntityField({
     // required
     type: UltimateEntityFieldTypes.STRING_ARRAY,
@@ -17,8 +21,6 @@ import { UltimateEntityFieldTypes, UltimateEntityField } from "medusa-plugin-ult
 })
 @Column({ type: "string", array: true, })
 keywords: string[];
-
-// code..
 ```
 
 ## Parameters
