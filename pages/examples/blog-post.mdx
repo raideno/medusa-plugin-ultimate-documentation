@@ -26,7 +26,7 @@ Refer to this two steps of the [Getting Started Tutorial](/getting-started) for 
 
 ### Create Entity
  
-Start by creating a new `blog-post` file under teh `src/models` directory. And add to it the necessary fields.
+Start by creating a new `blog-post.ts` file under teh `src/models` directory. And add to it the necessary fields.
 
 ```ts filename="src/models/blog-post.ts" showLineNumbers copy
 import { Column, Entity, BeforeInsert } from "typeorm";
@@ -43,6 +43,12 @@ export default class BlogPost extends BaseEntity {
 
   @Column({ type: "string" })
   description: string;
+
+  @Column({ type: "string"})
+  thumbnail: string;
+
+  @Column({ type: "string" })
+  cover: string;
 
   @Column({ type: "string", array: true, nullable: true })
   keywords: string[] | null;
@@ -65,7 +71,7 @@ This decorators will tell to the plugin what UI to generate for your entity.
   **What is a Decorator ?** Everything that start with `@`, refer to this [Documentation](https://www.typescriptlang.org/docs/handbook/decorators.html) to know more about decorators.
 </Callout>
 
-```ts {5-9,12,14-16,20-22,26-28,32-34,38-40} filename="src/models/blog-post.ts" copy showLineNumbers
+```ts {5-9,12,14-16,20-22,26-28,32-34,38-40,44-46,50-52} filename="src/models/blog-post.ts" copy showLineNumbers
 import { Column, Entity, BeforeInsert } from "typeorm";
 
 import { BaseEntity, generateEntityId } from "@medusajs/medusa";
@@ -96,6 +102,18 @@ export default class BlogPost extends BaseEntity {
   })
   @Column({ type: "string" })
   description: string;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.IMAGE,
+  })
+  @Column({ type: "string"})
+  thumbnail: string;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.IMAGE,
+  })
+  @Column({ type: "string" })
+  cover: string;
 
   @UltimateEntityField({
     type: UltimateEntityFieldTypes.STRING_ARRAY,
@@ -125,7 +143,7 @@ Goal:
 - We want the description length to be between 2 abd 2048.
 - We want the title length to be between 2 and 256.
 
-```ts {20,27-29} filename="src/models/blog-post.ts" copy showLineNumbers
+```ts {16,23-25} filename="src/models/blog-post.ts" copy showLineNumbers
 import { Column, Entity, BeforeInsert } from "typeorm";
 
 import { BaseEntity, generateEntityId } from "@medusajs/medusa";
@@ -139,11 +157,7 @@ import {
 @Entity()
 @UltimateEntity({})
 export default class BlogPost extends BaseEntity {
-  @UltimateEntityField({
-    type: UltimateEntityFieldTypes.STRING,
-  })
-  @Column({ type: "string" })
-  slug: string;
+  // code...
 
   @Length(2, 256)
   @UltimateEntityField({
@@ -161,22 +175,7 @@ export default class BlogPost extends BaseEntity {
   @Column({ type: "string", nullable: true })
   description?: string | null;
 
-  @UltimateEntityField({
-    type: UltimateEntityFieldTypes.STRING_ARRAY,
-  })
-  @Column({ type: "string", array: true, nullable: true })
-  keywords?: string[] | null;
-
-  @UltimateEntityField({
-    type: UltimateEntityFieldTypes.MARKDOWN,
-  })
-  @Column({ type: "string", nullable: true })
-  content?: string | null;
-
-  @BeforeInsert()
-  private beforeInsert(): void {
-    this.id = generateEntityId(this.id, "blog-post");
-  }
+  // code...
 }
 ```
 
@@ -225,5 +224,7 @@ To retreive the Blog Posts from your StoreFront, two endpoints are available
 To learn more about available endpoints refer to the [Endpoints Section](/endpoints) of the Documentation.
   
 </Steps>
+
+TODO: add cards to redirect to Blog Post With Categories
 
 End.

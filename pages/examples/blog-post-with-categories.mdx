@@ -1,7 +1,204 @@
 # Blog Post With Categories Example
 
+import { Steps } from 'nextra/components'
 import { Callout } from "nextra/components";
 
 <Callout type="info" emoji="ℹ️">
   This page haven't been written yet. Help us write it by contributing!
 </Callout>
+
+In this example we will create a Category Entity for our Blog Post Entity and it'll consist of the following fields:
+- Slug (blog-post-category url / unique id)
+- Name
+- Description
+- Image
+
+Reminder: The fields we just presented are just an example, you can customize them and add your own as you wish.
+
+<Steps>
+
+### Blog Post Example Steps
+
+<Callout type="info" emoji="ℹ️">
+  **IMPORTANT:** Before starting this tutorial / example we assume you have alreaady completed the **[Blog Post Example](/examples/blog-post)**.
+</Callout>
+
+### Create Blog Post Category Entity
+
+Start by creating a new `blog-post-category.ts` file under `src/models` directory. And add to it the censsary fields.
+
+```ts filename="src/models/blog-post-category.ts" copy showLineNumbers
+import { Column, Entity, BeforeInsert } from "typeorm";
+
+import { BaseEntity, generateEntityId } from "@medusajs/medusa";
+
+@Entity()
+export default class BlogPostCategory extends BaseEntity {
+  @Column({ type: "string", nullable: false, unique: true })
+  slug: string;
+
+  @Column({ type: "string"})
+  name: string;
+
+  @Column({ type: "string" })
+  description: string;
+
+  @Column({ type: "string" })
+  image: string;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "blog-post-category");
+  }
+}
+```
+
+### Add Ultimate Decorators to BlogPostCategory Entity
+
+This decorators will tell to the plugin what UI to generate for your entity.
+
+```ts {5-9,12,14-16,20-22,26-28,32-34} filename="src/models/blog-post-category.ts" copy showLineNumbers
+import { Column, Entity, BeforeInsert } from "typeorm";
+
+import { BaseEntity, generateEntityId } from "@medusajs/medusa";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+} from "medusa-plugin-ultimate/dist/index";
+
+@Entity()
+@UltimateEntity({})
+export default class BlogPostCategory extends BaseEntity {
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  @Column({ type: "string", nullable: false, unique: true })
+  slug: string;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  @Column({ type: "string"})
+  name: string;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.TEXT,
+  })
+  @Column({ type: "string" })
+  description: string;
+
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.IMAGE,
+  })
+  @Column({ type: "string" })
+  image: string;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "blog-post-category");
+  }
+}
+```
+
+### Link BlogPost and BlogPostCategory Entities
+
+If you correctly followed the [Blog Post Example Tutorial](/examples/blog-post) you should have a `blog-post.ts` file under the `src/models` directory.
+
+We will open it and add the following code to it:
+
+```ts {1-4,6,12-13,15-25} filename="src/models/blog-post.ts" showLineNumbers copy
+import {
+  UltimateEntityRelation,
+  UltimateEntityRelationTypes,
+} from "medusa-plugin-ultimate/dist/index";
+
+import BlogPostCategory from "./blog-post-category.ts";
+
+export default class BlogPost extends BaseEntity {
+
+  // other fields..
+
+  @Column({ type: "varchar", nullable: true })
+  category_id?: string | null;
+
+  @UltimateEntityRelation({
+    type: UltimateEntityRelationTypes.MANY_TO_ONE_RELATION_SELECT,
+    relationEntityId: "blog_post_category",
+    relationEntityPropertyName: "blogPosts",
+  })
+  @ManyToOne(() => BlogPostCategory)
+  @JoinColumn({
+    name: "category_id",
+    referencedColumnName: "id",
+  })
+  category?: BlogPostCategory | null;
+
+  // other fields..
+
+}
+```
+
+### Create Required Migrations
+
+<Callout type="info" emoji="ℹ️">
+  **Note:** To learn more about migrations visit: [Medusa Documentation](/) or [Typeorm Documentation](/).
+</Callout>
+
+
+We will need two migrations:
+- Category Create.
+- Blog Post Correct.
+
+#### Category Create Migration
+
+Generate migration file with following command:
+
+```bash copy
+  medusa generate
+```
+
+```ts copy showLineNumbers
+
+```
+
+#### Blog Post Correct Migration
+
+Generate migration file with following command:
+
+```bash copy
+  medusa generate
+```
+
+#### Build & Run the Migrations
+
+```bash copy
+  medusa build
+```
+
+```bash copy
+  medusa run
+```
+
+### Enjoy UI
+
+Try and create categories.
+
+[Ultimate-Entites-Tab-ScreenShot](/)
+
+[Category-Ultimate-Entity-Documents-ScreenShot](/)
+
+[Category-Ultimate-Entity-Create-Document-ScreenShot](/)
+
+[Blog-Post-Ultimate-Entity-Documents-ScreenShot](/)
+
+[Blog-Post-Ultimate-Entity-Associate-Category-Document-ScreenShot](/)
+
+### Fetch Data form StoreFront
+
+#### Get Blog Post Categories
+
+#### Get Blog Post Category by ID
+
+</Steps>

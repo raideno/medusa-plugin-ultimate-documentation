@@ -1,27 +1,54 @@
 import React from "react";
+
 import { DocsThemeConfig } from "nextra-theme-docs";
+
+import { FaGithub, FaDiscord } from 'react-icons/fa';
 
 const config: DocsThemeConfig = {
   logo: <span>Medusa Plugin Ultimate</span>,
-  // head: (
-  //   <div className="w-full py-2 px-6 flex flex-row items-center justify-center bg-[#ab570a]">
-  //     <div className="font-[14px] sm:font-[16px] text-white text-center">
-  //       ⚠️IMPORTANT⚠️: The doc is still being built / completed, feel free to DM
-  //       if you need help.
-  //     </div>
-  //   </div>
-  // ),
   project: {
-    icon: undefined,
+    icon: <FaGithub />,
     link: "https://github.com/raideno/medusa-plugin-ultimate",
   },
   chat: {
-    icon: undefined,
-    link: "https://discord.com",
+    icon: <FaDiscord />,
+    link: "https://discord.com/users/423897604330618883/users/423897604330618883",
   },
-  docsRepositoryBase: "https://github.com/raideno/medusa-plugin-ultimate",
+  docsRepositoryBase: "https://github.com/raideno/medusa-plugin-ultimate-documentation",
+  darkMode: true,
+  feedback: {
+
+  },
+  banner: {
+    dismissible: true,
+    key: "help-banner",
+    text: (
+      <span>
+        📙 For any Help, Contact me on Discord{" "}
+        <a className="underline" href="https://discord.com/users/423897604330618883/users/423897604330618883" target="_blank">
+          (@raideno)
+        </a>
+        .
+      </span>
+    )
+  },
+
+  logoLink: "",
+  
+  // notFound: {
+  //   content: "Not Found Page!",
+  //   labels: "Not Found",
+  // },
+
+  sidebar: {
+    defaultMenuCollapseLevel: 0,
+    autoCollapse: true,
+    toggleButton: true,
+  },
+  
   footer: {
-    text: "Medusa Ultimate Plugin Docs",
+    component: null,
+    text: null,
   },
 };
 
