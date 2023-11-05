@@ -1,7 +1,133 @@
 # Ordered Entities
 
+import { Steps } from 'nextra/components';
 import { Callout } from "nextra/components";
-
+import { Cards, Card } from 'nextra/components';
+ 
 <Callout type="info" emoji="ℹ️">
   This page haven't been written yet. Help us write it by contributing!
 </Callout>
+
+![screenshot](/assets/ordering-screenshot.png)
+
+Enabling this feature will enable the documents to be draggable and orederable, the position (rank) of each document will be stored in the column of your choise.
+
+<Steps>
+### Create your Entity and Migrations
+Before starting we assume that you already have an entity and created migrations for it, if it's not the case we invite you to follow one of the available examples / tutorials:
+
+<Cards>
+  <Card title="All Examples" href="/examples" />
+  <Card title="Blog Post Category" href="/examples/blog-post-with-categories" />
+  <Card title="Starting Tutorial" href="/getting-started" />
+</Cards>
+
+In the following example we will work on the following entity:
+
+```ts filename="src/models/location.ts" showLineNumbers copy
+import { BeforeInsert, Column, Entity } from "typeorm";
+
+import { BaseEntity } from "@medusajs/medusa";
+import { generateEntityId } from "@medusajs/medusa/dist/utils";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+} from "medusa-plugin-ultimate";
+
+@Entity()
+@UltimateEntity()
+export class Location extends BaseEntity {
+  @Column({ type: "varchar" })
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  name: string | null;
+
+  @Column({ type: "varchar" })
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  address: string | null;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "location");
+  }
+}
+```
+
+It's a `Location` Entity that represents our physical store locations and we want them to be ranked / have position (we kept our entity as minimal as possible but you are free to add any other fields / relations you need).
+
+### Add the position (rank) field (column)
+
+This field will be used by the plugin to store the document position, you can use it in your storefront to order the document and to know it's position (rank).
+
+```ts {10,28} filename="src/models/location.ts" showLineNumbers copy
+import { BeforeInsert, Column, Entity } from "typeorm";
+
+import { BaseEntity } from "@medusajs/medusa";
+import { generateEntityId } from "@medusajs/medusa/dist/utils";
+
+import {
+  UltimateEntity,
+  UltimateEntityField,
+  UltimateEntityFieldTypes,
+  UltimateEntityPositionColumn
+} from "medusa-plugin-ultimate";
+
+@Entity()
+@UltimateEntity()
+export class Location extends BaseEntity {
+  @Column({ type: "varchar" })
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  name: string | null;
+
+  @Column({ type: "varchar" })
+  @UltimateEntityField({
+    type: UltimateEntityFieldTypes.STRING,
+  })
+  address: string | null;
+
+  @UltimateEntityPositionColumn()
+  @Column({ type: "integer", nullable: true })
+  position?: number | null;
+
+  @BeforeInsert()
+  private beforeInsert(): void {
+    this.id = generateEntityId(this.id, "location");
+  }
+}
+```
+
+**Note:** the name of the position (rank) column (field) can be anything you want and don't necessarily have to be "position".
+
+### Create the necessary Migrations
+
+Migrations are SQL code that'll be run on your database to sync your entites structure to your database schema.
+
+- 1 run the command to generate a file + show the empty file
+- 2 write onto the file
+- 3 run the migration
+
+To know more about migrations refer to:
+- [Medusa Migrations Documentation](https://example.com).
+- [Typeorm Documentation](https://example.com).
+
+### Experiment with the UI
+
+[Dragging-Gif]().
+
+### Fetch Data from StoreFront
+
+- the plugin will ensure that your documents position are valid (always start from 0 and there is no gap between document positions).
+- the new position (rank) column (field) you added will be available just like all the other fields when you fetch your document(s).
+- list endpoints
+- endpoints doc
+
+</Steps>
+
+End.
