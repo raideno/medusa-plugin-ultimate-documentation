@@ -8,6 +8,7 @@ import { Cards, Card } from 'nextra/components';
   This page haven't been written yet. Help us write it by contributing!
 </Callout>
 
+![Ordering-Demonstration-Gif](/gifs/documents-ordering-demonstration.gif)
 ![screenshot](/assets/ordering-screenshot.png)
 
 Enabling this feature will enable the documents to be draggable and orederable, the position (rank) of each document will be stored in the column of your choise.
@@ -62,7 +63,7 @@ It's a `Location` Entity that represents our physical store locations and we wan
 
 ### Add the position (rank) field (column)
 
-This field will be used by the plugin to store the document position, you can use it in your storefront to order the document and to know it's position (rank).
+This field will be used by the plugin to store the document position, you can use it in your storefront to order the document and to know it's position   (rank).
 
 ```ts {10,28} filename="src/models/location.ts" showLineNumbers copy
 import { BeforeInsert, Column, Entity } from "typeorm";
@@ -119,7 +120,7 @@ To know more about migrations refer to:
 
 ### Experiment with the UI
 
-[Dragging-Gif]().
+![Ordering-Demonstration-Gif](/gifs/documents-ordering-demonstration.gif).
 
 ### Fetch Data from StoreFront
 
